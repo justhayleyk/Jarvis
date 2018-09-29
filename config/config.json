@@ -2,7 +2,9 @@
   "development": {
     "username": "root",
     "password": "password",
+
     "database": "jarvisdb",
+
     "host": "localhost",
     "port": 8000,
     "dialect": "mysql"
