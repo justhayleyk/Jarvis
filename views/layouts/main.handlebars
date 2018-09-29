@@ -8,8 +8,13 @@
   <!-- Bootstrap -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
     crossorigin="anonymous">
+  <!-- icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+  <!-- rotating css -->
+  <link rel="stylesheet" href="/styles/rotating-card.css">
   <!-- main css -->
-  <link rel="stylesheet" href="../../public/styles/styles.css">
+  <link rel="stylesheet" href="/styles/styles.css">
   <!-- jQuery -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
@@ -18,7 +23,7 @@
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Jarvis</a>
+    <a class="navbar-brand" href="/"><img src="/images/Jarvis-Logo-200px.png" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
       aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,7 +31,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
@@ -34,13 +39,15 @@
             Services
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Cleaner</a>
-            <a class="dropdown-item" href="#">Personal Chef</a>
-            <a class="dropdown-item" href="#">Laundry Service</a>
+            <a class="dropdown-item" href="/services">Cleaner</a>
+            <a class="dropdown-item" href="/services">Personal Chef</a>
+            <a class="dropdown-item" href="/services">Laundry Service</a>
           </div>
         </li>
-        <button style="margin-right: 5px" class="btn btn-sm btn-outline-secondary" id="signUp" type="button">Sign Up</button>
-        <button class="btn btn-sm btn-outline-secondary" id="login" type="button">Login</button>
+        <button onclick="window.location.href='/signup'" style=" margin-right: 5px" class="btn btn-sm btn-outline-secondary"
+          id="signUp" type="button">Sign
+          Up</button>
+        <button onclick="window.location.href='/login'" class="btn btn-sm btn-outline-secondary" id="login" type="button">Login</button>
         <li class="nav-item">
           <a class="nav-link" href="#"></a>
         </li>
@@ -92,12 +99,26 @@
     $(".dropdown-trigger").dropdown();
     console.log("ready!");
     $('.carousel').carousel();
+    $('[rel="tooltip"]').tooltip();
+
+
+
   });
 
-
+  function rotateCard(btn) {
+    var $card = $(btn).closest('.card-container');
+    console.log($card);
+    if ($card.hasClass('hover')) {
+      $card.removeClass('hover');
+    } else {
+      $card.addClass('hover');
+    }
+  }
 
 
 
 </script>
+
+
 
 </html>

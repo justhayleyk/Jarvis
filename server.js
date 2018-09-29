@@ -2,6 +2,7 @@ require('dotenv').config();
 var express = require('express');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
+var path = require('path');
 
 var db = require('./models');
 
@@ -12,6 +13,9 @@ var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
+
+// Use static
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Handlebars
 app.engine(
@@ -28,7 +32,6 @@ require('./routes/htmlRoutes')(app);
 
 require('./controllers/vistorController.js')(app);
 
-
 // If we want to drop tables, force: true
 var syncOptions = { force: false };
 
@@ -41,7 +44,6 @@ var syncOptions = { force: false };
 
 // console.log('env:', process.env.NODE_ENV);
 // console.log('options:', syncOptions);
-
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(function() {
