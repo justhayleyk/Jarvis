@@ -3,14 +3,23 @@ var customers = require('./customers');
 
 module.exports = function(sequelize, DataTypes) {
   var Job = sequelize.define('Job', {
-    typeofjob: DataTypes.STRING,
-    datetobedone: DataTypes.DATE,
-    // custid: customers.id,
-    // custname: customers.name,
-    // contrid: contractors.id,
-    // contractorname: contractors.name,
-    payment: DataTypes.DECIMAL,
-    comments: DataTypes.STRING,
+    typeofjob: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    datetobedone: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+
+    payment: {
+      type: DataTypes.DECIMAL,
+      allowNull: false
+    },
+    comments: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     status: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
@@ -22,8 +31,6 @@ module.exports = function(sequelize, DataTypes) {
     // Associating Jobs with Jobs
     // When an Jobs is deleted, also delete any associated Jobs
     Job.belongsTo(models.Customer, {
-      // foreignKey: 'contractor_id',
-      // targetKey: 'contractor_id'
       foreignKey: {
         allowNull: false
       }
