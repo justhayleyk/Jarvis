@@ -2,8 +2,11 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "exampledb",
+
+    "database": "jarvisdb",
+
     "host": "localhost",
+    "port": 8000,
     "dialect": "mysql"
   },
   "test": {
