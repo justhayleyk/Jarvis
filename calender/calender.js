@@ -9,9 +9,9 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, '../views/calender-login.html'));
 
     const oauth2Client = new google.auth.OAuth2(
-      '32898389523-n1q62hpuivjjee3i86n876pf96vkn543.apps.googleusercontent.com',
-      'h_XMVDN_1aTuCOhqRLwdFTUt',
-      'http://localhost:3000/oauthcallback'
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET_ID,
+      process.env.URI
     );
 
     // generate a url that asks permissions for Google+ and Google Calendar scopes
