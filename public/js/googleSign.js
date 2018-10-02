@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  //on initial load of the webpage, the signOut button will be hidden
+  $('#logOut').css('display', 'none');
   //setting an empty variable equal to null
   var windowOpen;
   //on click of the login button, a new window(popup) will open to the specified href, with a width and height pre-defined
@@ -15,6 +17,11 @@ $(document).ready(function() {
   //this function works with the file under public/oauthcallback/callback.html
   //when this window (calender-login page) gets a message it executes
   window.onmessage = function(event) {
+    //when a successful oauth code is given back from the google login window
+    //this sign in button will be hidden
+    $('#login').css('display', 'none');
+    //the sign out button will then be displayed
+    $('#logOut').css('display', 'block');
     //the window created before with the link to the login closes
     windowOpen.close();
     //saving the message received from that closed window into a variable.
@@ -40,5 +47,24 @@ $(document).ready(function() {
       data: { code: code }
     });
   };
+  //signOut button js
+  //needs work
+  $('#logOut').on('click', function() {
+    console.log('Logout');
+    function signOut() {
+      //google api method fn
+      // var auth2 = gapi.auth2.getAuthInstance();
+      //on successful sign out
+      //auth2.signOut().then(function() {
+      //alert that user has signed out
+      alert('Successfully Signed out');
+      //change hidden sign in button back to being visible
+      $('#login').css('display', 'block');
+      //change profile data being shown back to being hidden
+      $('#logOut').css('display', 'none');
+      //});
+    }
+    signOut();
+  });
   //end of document .ready jqeury function
 });
