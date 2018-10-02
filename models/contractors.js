@@ -12,11 +12,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     phone: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.BIGINT(10),
       allowNull: false,
       validation: {
         //will not allow letters
-        not: ['[a-z]', 'i']
+        not: ['[a-z]', 'i'],
+        len: [10]
       }
     },
     email: {
