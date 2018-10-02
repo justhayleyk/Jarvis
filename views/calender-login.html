@@ -8,8 +8,6 @@
   <title>Google Sign in</title>
   <!--Bootstrap cdn if neccessary-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-  <!--Google sign in button, with client id-->
-  <meta name="google-signin-client_id" content="32898389523-n1q62hpuivjjee3i86n876pf96vkn543.apps.googleusercontent.com">
   <!--Google platform for their library -->
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <!--Jquery cdn link-->
@@ -17,30 +15,12 @@
     crossorigin="anonymous"></script>
   <script src="https://apis.google.com/js/api.js"></script>
   <script src="/js/googleSign.js"></script>
-
-  <!--Going to add styles here temporarily-->
-  <style>
-    .g-signin2 {
-      margin-left: 500px;
-      margin-top: 500px
-    }
-
-    .data {
-      display: none
-    }
-  </style>
 </head>
 
 <body>
-  <!--google sign in button-->
-  <div class="g-signin2" data-onsuccess="onSignIn"></div>
-  <div class="data">
-    <p>Profile Details</p>
-    <img id="pic" class="img-circle" width="100" height="100">
-    <p>Email Address</p>
-    <p id="email" class="alert alert-danger"></p>
-    <button onclick="signOut()" class="btn btn-danger">Sign Out</button>
-  </div>
+  <!--button to login-->
+  <button id="login">Login google
+  </button>
 
 </body>
 
