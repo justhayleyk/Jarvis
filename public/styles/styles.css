@@ -132,3 +132,6 @@ body {
 .banner-text p {
   color: #fff;
 }
+#logOut {
+  display: 'none';
+}
