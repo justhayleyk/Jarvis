@@ -34,15 +34,19 @@ module.exports = function(app) {
     prompt: 'consent'
   });
   //login page under /login, the static page for calender login is located here
-  app.get('/login', function(req, res) {
-    res.sendFile(
-      path.join(__dirname, '../public/loginpage/calender-login.html')
-    );
-  });
+  /*app.get('/google', function(req, res) {
+    res.render('contractorUI');
+  });*/
+  // Render 404 page for any unmatched routes
+  /*app.get('*', function(req, res) {
+    res.render('404');
+  });*/
   //when the user agrees and allows permission this page will close, but route is needed to generate the oauth code
   //and send it back to the login page where it will be modified and sent back to the calenderRoutes.js to get
   //access tokens, token type, expiration, refresh token, etc.
   app.get('/oauthcallback', function(req, res) {
+    //res.render('oauthcallback');
+
     res.sendFile(path.join(__dirname, '../public/oauthcallback/callback.html'));
   });
   //the login page will send the oauth code on this
