@@ -25,6 +25,10 @@ module.exports = function(app) {
     //   });
     // });
   });
+  /*app.get('/oauthcallback', function(req, res) {
+    res.render('oauthcallback');
+    //res.sendFile(path.join(__dirname, '../public/oauthcallback/callback.html'));
+  });*/
   // Load example page and pass in an example by id
   app.get('/signup/', function(req, res) {
     res.render('signup');
@@ -60,10 +64,5 @@ module.exports = function(app) {
         example: dbExample
       });
     });
-  });
-
-  // Render 404 page for any unmatched routes
-  app.get('*', function(req, res) {
-    res.render('404');
   });
 };

@@ -31,6 +31,7 @@ require('./routes/apiRoutes')(app);
 require('./routes/htmlRoutes')(app);
 
 require('./controllers/vistorController.js')(app);
+require('./routes/calendarRoutes')(app);
 
 // If we want to drop tables, force: true
 var syncOptions = { force: true };
