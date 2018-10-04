@@ -1,10 +1,12 @@
 $(document).ready(function() {
   //on initial load of the webpage, the signOut button will be hidden
-  $('#logOut').css('display', 'none');
+  //$('#logOut').css('display', 'none');
   //setting an empty variable equal to null
+  console.log('js file is working');
   var windowOpen;
   //on click of the login button, a new window(popup) will open to the specified href, with a width and height pre-defined
-  $('#login').on('click', function() {
+  $('.googleAuth').on('click', function() {
+    event.preventDefault();
     //this url was generated from the calenderRoutes.js file url variable
     var googleUrl =
       'https://accounts.google.com/o/oauth2/v2/auth?access_type=offline&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fcalendar.events&prompt=consent&response_type=code&client_id=32898389523-n1q62hpuivjjee3i86n876pf96vkn543.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Foauthcallback';
@@ -19,9 +21,9 @@ $(document).ready(function() {
   window.onmessage = function(event) {
     //when a successful oauth code is given back from the google login window
     //this sign in button will be hidden
-    $('#login').css('display', 'none');
+    $('.googleAuth').css('display', 'none');
     //the sign out button will then be displayed
-    $('#logOut').css('display', 'block');
+    //$('#logOut').css('display', 'block');
     //the window created before with the link to the login closes
     windowOpen.close();
     //saving the message received from that closed window into a variable.
@@ -38,7 +40,7 @@ $(document).ready(function() {
     //var code = urlIndex.substring(0, urlIndex.lastIndexOf('&'));
     //although uneccessary, I just set urlIndex=code, and sent the code to calendarRoutes.js
     var code = urlIndex;
-    //console.log('This is the final code: ' + code);
+    console.log('This is the final code: ' + code);
     //sending the modified code using a post request to the url /token. the data has to be in an object, so
     //just wrap the code in an object and the property code set equal to the variable code.
     $.ajax({
@@ -49,7 +51,7 @@ $(document).ready(function() {
   };
   //signOut button js
   //needs work
-  $('#logOut').on('click', function() {
+  /* $('#logOut').on('click', function() {
     console.log('Logout');
     function signOut() {
       //google api method fn
@@ -65,6 +67,6 @@ $(document).ready(function() {
       //});
     }
     signOut();
-  });
+  });*/
   //end of document .ready jqeury function
 });
