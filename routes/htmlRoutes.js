@@ -14,7 +14,7 @@ module.exports = function(app) {
   });
 
   // Load example page and pass in an example by id
-  app.get('/login/', function(req, res) {
+  /*app.get('/login/', function(req, res) {
     res.render('login');
 
     // db.Example.findOne({ where: { id: req.params.id } }).then(function(
@@ -24,10 +24,6 @@ module.exports = function(app) {
     //     example: dbExample
     //   });
     // });
-  });
-  /*app.get('/oauthcallback', function(req, res) {
-    res.render('oauthcallback');
-    //res.sendFile(path.join(__dirname, '../public/oauthcallback/callback.html'));
   });*/
   // Load example page and pass in an example by id
   app.get('/signup/', function(req, res) {
