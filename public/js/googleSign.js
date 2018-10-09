@@ -69,4 +69,43 @@ $(document).ready(function() {
     signOut();
   });*/
   //end of document .ready jqeury function
+  $('.signUpUser').on('click', function() {
+    event.preventDefault();
+    console.log('yes user');
+    var name = $('#name')
+      .val()
+      .trim();
+    var userName = $('#userName')
+      .val()
+      .trim();
+    var userAddress = $('#userAddress')
+      .val()
+      .trim();
+    var userPhone = $('#userPhone')
+      .val()
+      .trim();
+    var userEmail = $('#userEmail')
+      .val()
+      .trim();
+    var userPassword = $('#userPassword')
+      .val()
+      .trim();
+
+    $.ajax({
+      type: 'POST',
+      url: '/signup/',
+      data: {
+        userName: userName,
+        name: name,
+        userAddress: userAddress,
+        userPhone: userPhone,
+        userEmail: userEmail,
+        userPassword: userPassword
+      }
+    });
+  });
+  $('.signUpContractor').on('click', function() {
+    event.preventDefault();
+    console.log('yes contractor');
+  });
 });
