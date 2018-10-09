@@ -40,7 +40,7 @@ module.exports = function(sequelize, DataTypes) {
     custpayment: DataTypes.DECIMAL,
     custnotes: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     custstatus: {
       type: DataTypes.BOOLEAN,
