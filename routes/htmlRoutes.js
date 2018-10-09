@@ -1,4 +1,10 @@
 var db = require('../models');
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 module.exports = function(app) {
   // Load index page
@@ -40,6 +46,14 @@ module.exports = function(app) {
     //     example: dbExample
     //   });
     // });
+  });
+  app.post('/signup/', function(req, res) {
+    console.log(req.body.userName);
+    console.log(req.body.userPassword);
+    console.log(req.body.name);
+    console.log(req.body.userPhone);
+    console.log(req.body.userAddress);
+    console.log(req.body.userEmail);
   });
 
   // Load example page and pass in an example by id
