@@ -7,6 +7,13 @@ module.exports = function(sequelize, DataTypes) {
         is: ['^[a-z]+$', 'i']
       }
     },
+    custusername: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validation: {
+        is: ['^[a-z]+$', 'i']
+      }
+    },
     custaddress: {
       type: DataTypes.STRING,
       allowNull: false
@@ -15,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.BIGINT(10),
       allowNull: false,
       validation: {
-        not: ['[a-z]', 'i'],
+        //not: ['[a-z]', 'i'],
         len: [10]
       }
     },
