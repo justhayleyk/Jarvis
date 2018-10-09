@@ -16,7 +16,7 @@ app.use(express.static('public'));
 
 // Use static
 app.use(express.static(path.join(__dirname, 'public')));
-
+console.log('dirname =', __dirname);
 // Handlebars
 app.engine(
   'handlebars',
@@ -33,7 +33,7 @@ require('./routes/htmlRoutes')(app);
 require('./controllers/vistorController.js')(app);
 
 // If we want to drop tables, force: true
-var syncOptions = { force: true };
+var syncOptions = { force: false };
 
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
