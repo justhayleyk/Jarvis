@@ -54,6 +54,15 @@ module.exports = function(app) {
     console.log(req.body.userPhone);
     console.log(req.body.userAddress);
     console.log(req.body.userEmail);
+    db.Customer.create({
+      custname: req.body.userName,
+      custaddress: req.body.userAddress,
+      custphone: req.body.userPhone,
+      custemail: req.body.userEmail,
+      custpswrd: req.body.userPassword
+    }).then(function(newUser) {
+      console.log(newUser);
+    });
   });
 
   // Load example page and pass in an example by id
