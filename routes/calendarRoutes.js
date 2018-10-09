@@ -22,7 +22,7 @@ module.exports = function(app) {
     Session({
       secret: process.env.SECRET_SESSION,
       resave: true,
-      saveUninitialized: true,
+      saveUninitialized: false,
       cookie: {
         expires: 600000
       }
@@ -56,9 +56,9 @@ module.exports = function(app) {
     //this fn will get the tokens required(access tokens, refresh tokens, token type, expiration)
     oauth2Client.getToken(code, function(err, tokens) {
       if (!err) {
-        var loggedin = true;
         var session = req.session;
         //set the credentials of the user based on the tokens generated using the oauth code
+        //var fullyAuthenticated = req.session.oauth2Client;
         oauth2Client.setCredentials(tokens);
         oauth2Client.on('tokens', tokens => {
           if (tokens.refresh_token) {
@@ -71,14 +71,14 @@ module.exports = function(app) {
         // res.send(loggedin);
       }
       next();
+      //else
+      // res.redirect('/login');
     });
   };
+  /*app.use(function(req, res, next) {
+    authenticate();
+  });*/
   app.get('/login/', authenticate, function(req, res) {
-    if (req.session) {
-      console.log('help');
-      console.log(req.session);
-    }
-
     res.render('login');
 
     // db.Example.findOne({ where: { id: req.params.id } }).then(function(
@@ -97,7 +97,7 @@ module.exports = function(app) {
 
     res.sendFile(path.join(__dirname, '../public/oauthcallback/callback.html'));
   });
-  var loggedin = false;
+  //var loggedin = false;
   //the login page will send the oauth code on this
   app.post('/token', authenticate, function(req, res) {
     //this will implement a session for storage
@@ -140,12 +140,6 @@ module.exports = function(app) {
           ]
         }
       };
-      app.get('/token', authenticate, function(req, res) {
-        if ((loggedin = true)) {
-          console.log('user is logged in');
-          //res.send(loggedin);
-        }
-      });
       //specifies that the calender is version 3
       var calendar = google.calendar('v3');
       //insert event into calender where authorization is set by the oauth2client(us) and the calender
