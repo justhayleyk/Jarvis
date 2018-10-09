@@ -26,7 +26,7 @@ VALUES
 ());
 
 INSERT INTO customers
-    (custname, custaddress, custphone, custemail, custpswrd, custpayment, custcomments, createdAt, updatedAt)
+    (custname, custaddress, custphone, custemail, custpswrd, custpayment, custnotes, createdAt, updatedAt)
 VALUES
     ("Ankit", "335 Webb Dr., Misssissauga, ON, L0L 4Z9", 9051234567, "ankit@gmail.com", "mypasww", 80, "I would like to have 2hrs done in the morning", CURRENT_TIMESTAMP
 (), CURRENT_TIMESTAMP
