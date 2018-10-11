@@ -21,11 +21,23 @@ module.exports = function(app) {
   //session storage. Secret is randomly created. resave forces session to be stored in session storage. setting saveUninitialized to true
   //forces session to be stored in the store. Set to false if you need permissions to allow cookies, reducing server storage usuage
   //or for implementing a required login page
+  const authorizationCheck = function(req, res, next) {
+    //if user is not logged in
+    if (!req.user) {
+      res.redirect('/login/');
+    } else {
+      //if logged in
+      next();
+    }
+  };
+  //
   passport.serializeUser(function(Customer, done) {
     done(null, Customer.google_Id);
   });
   passport.deserializeUser(function(google_Id, done) {
-    db.Customer.Find({ google_Id: google_Id }).then(function(Customer) {
+    db.Customer.find({ where: { google_Id: google_Id } }).then(function(
+      Customer
+    ) {
       done(null, Customer);
     });
   });
@@ -39,13 +51,14 @@ module.exports = function(app) {
         callbackURL: process.env.URI
       },
       function(accessToken, refreshToken, profile, done) {
-        //console.log(profile.id);
+        // console.log(profile);
+        // console.log(profile.emails.value);
         db.Customer.findOne({ where: { google_Id: profile.id } }).then(function(
           existingUser
         ) {
           if (existingUser) {
             //already have user
-            console.log('Already have this user: ' + existingUser);
+            //console.log('Already have this user: ' + existingUser);
             done(null, existingUser);
           } else {
             //if not in database create
@@ -54,7 +67,7 @@ module.exports = function(app) {
               name: profile.displayName
               //name: profile.displayName
             }).then(function(newUser) {
-              console.log('new user created: ' + newUser);
+              //console.log('new user created: ' + newUser);
               done(null, newUser);
               //res.redirect('/');
             });
@@ -85,6 +98,7 @@ module.exports = function(app) {
     //     example: dbExample
     //   });
     // });
+    //console.log(req.user);
   });
   app.get(
     '/loginGoogle',
@@ -106,11 +120,17 @@ module.exports = function(app) {
       //res.render('oauthcallback');
 
       res.redirect('/');
-      console.log('The entire cookie: ' + req.user);
-      console.log('The name of the user: ' + req.user.name);
-      console.log('The google id of the user: ' + req.user.google_Id);
+      //console.log('The entire cookie: ' + req.user.name);
+      // console.log(req.user);
+      console.log(req.user.name);
+      //console.log('The google id of the user: ' + req.user.google_Id);
+      //res.redirect('/');
     }
   );
+  app.get('/profile', authorizationCheck, function(req, res) {
+    res.send('You are logged in: ' + req.user.name);
+  });
+  //console.log(`SignedInUserName: \n ${SignedInUserName}`);
   //var loggedin = false;
   //the login page will send the oauth code on this
   /*app.post('/token', function(req, res) {
