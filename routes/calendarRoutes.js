@@ -22,21 +22,12 @@ module.exports = function(app) {
   //session storage. Secret is randomly created. resave forces session to be stored in session storage. setting saveUninitialized to true
   //forces session to be stored in the store. Set to false if you need permissions to allow cookies, reducing server storage usuage
   //or for implementing a required login page
-  const OAuth2 = google.auth.OAuth2;
+  //const OAuth2 = google.auth.OAuth2;
   const authorizationCheck = function(req, res, next) {
     //if user is not logged in
     if (!req.user) {
       res.redirect('/login/');
     } else {
-      const oauth2Client = new google.auth.OAuth2(
-        process.env.CLIENT_ID,
-        process.env.CLIENT_SECRET_ID,
-        process.env.URI
-      );
-      oauth2Client.setCredentials({
-        access_token: req.user.google_token_access,
-        refresh_token: req.user.google_refresh_token
-      });
       //if logged in
       next();
     }
@@ -183,6 +174,13 @@ module.exports = function(app) {
 
   app.post('/dashboard/calendar', authorizationCheck, function(req, res) {
     console.log('\n working \n');
+    const OAuth2 = google.auth.OAuth2;
+    const oauth2Client = new OAuth2(
+      process.env.CLIENT_ID,
+      process.env.CLIENT_SECRET_ID,
+      process.env.URI
+    );
+
     addEvents();
 
     var calendarSummary = req.body.summary;
@@ -198,16 +196,20 @@ module.exports = function(app) {
       \n end time: ${calendarEndTime}`
     );*/
     function addEvents() {
+      oauth2Client.setCredentials({
+        access_token: req.user.google_token_access,
+        refresh_token: req.user.google_refresh_token
+      });
       var event = {
-        summary: 'test',
-        location: '800 Howard St., San Francisco, CA 94103',
-        description: "A chance to hear more about Google's developer products.",
+        summary: calendarSummary,
+        location: calendarLocation,
+        description: calendarDescription,
         start: {
-          dateTime: '2018-10-08T09:00:00-07:00',
+          dateTime: '2018-10-30T09:00:00-07:00',
           timeZone: 'America/Los_Angeles'
         },
         end: {
-          dateTime: '2018-10-08T17:00:00-07:00',
+          dateTime: '2018-10-30T17:00:00-07:00',
           timeZone: 'America/Los_Angeles'
         },
         recurrence: ['RRULE:FREQ=DAILY;COUNT=2'],
