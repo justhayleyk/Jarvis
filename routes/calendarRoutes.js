@@ -127,8 +127,31 @@ module.exports = function(app) {
       //res.redirect('/');
     }
   );
-  app.get('/profile', authorizationCheck, function(req, res) {
-    res.send('You are logged in: ' + req.user.name);
+  app.get('/dashboard', authorizationCheck, function(req, res) {
+    console.log('working');
+  });
+  app.get('/profile/account', authorizationCheck, function(req, res) {
+    //res.send('You are logged in: ' + req.user.name);
+    res.render('profile-signup');
+    console.log('\n\nOVER HERE ' + req.user.google_Id + '\n\n');
+  });
+  app.post('/profile/Customer/update', authorizationCheck, function(req, res) {
+    console.log('post request for additional information');
+    db.Customer.update(
+      {
+        address: req.body.userAddress,
+        phone: req.body.userPhone,
+        email: req.body.userEmail
+      },
+      {
+        where: {
+          google_Id: req.user.google_Id
+        }
+      }
+    ).then(function(showUpdated) {
+      console.log(`updated customer information: ${showUpdated}`);
+    });
+    return res.redirect('/');
   });
   //console.log(`SignedInUserName: \n ${SignedInUserName}`);
   //var loggedin = false;
