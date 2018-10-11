@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Jarvis ~ Your Personal Conceirge</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font: 13px Helvetica, Arial;
+    }
+
+    form {
+      background: #000;
+      padding: 3px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    form input {
+      border: 0;
+      padding: 10px;
+      width: 90%;
+      margin-right: .5%;
+    }
+
+    form button {
+      width: 9%;
+      background: rgb(130, 224, 255);
+      border: none;
+      padding: 10px;
+    }
+
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    #messages li {
+      padding: 5px 10px;
+    }
+
+    #messages li:nth-child(odd) {
+      background: #eee;
+    }
+
+    #messages {
+      margin-bottom: 40px
+    }
+  </style>
+  <link rel="shortcut icon" href="waiter.png" type="image/x-icon">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    crossorigin="anonymous">
+  <!-- icons -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="../js/googleSign.js"> </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/"><img src="../images/Jarvis-Logo-200px.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Services
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="/services">Cleaner</a>
+            <a class="dropdown-item" href="/services">Personal Chef</a>
+            <a class="dropdown-item" href="/services">Laundry Service</a>
+          </div>
+        </li>
+        <button onclick="window.location.href='/signup'" style=" margin-right: 5px" class="btn btn-sm btn-outline-secondary"
+          id="signUp" type="button">Sign
+          Up</button>
+        <button onclick="window.location.href='/login'" class="btn btn-sm btn-outline-secondary" id="login" type="button">Login</button>
+        <li class="nav-item">
+          <a class="nav-link" href="#"></a>
+        </li>
+
+      </ul>
+    </div>
+  </nav>
+
+  <ul id="messages"></ul>
+  <form action="">
+    <input id="m" autocomplete="off" /><button>Send</button>
+  </form>
+
+  <!-- Footer -->
+  <footer class="pageFooter">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Jarvis - Your Personal Conceirge</h5>
+          <p class="grey-text text-lighten-4">Created by Abdul, Alejandra, Hayley, Rob and Suraj</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Links</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#!">Privacy Policy</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Terms and Conditions</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="footer-copyright">
+      <div class="container">
+        Jarvis © 2018 All Rights Reservered.
+        <a class="grey-text text-lighten-4 right" href="#!">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.dev.js"></script>
+  <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script>
+    $(function () {
+      var socket = io();
+      $('form').submit(function () {
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function (msg) {
+        $('#messages').append($('<li>').text(msg));
+        window.scrollTo(0, document.body.scrollHeight);
+      });
+    });
+  </script>
+</body>
+
+
+</html>

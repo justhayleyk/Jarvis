@@ -55,6 +55,12 @@ module.exports = function(app) {
     // });
   });
 
+  // socketIO chat route
+  app.get('/chat/', function(req, res) {
+    res.sendFile(__dirname + '/socketio.html');
+    console.log('this is dirname' + __dirname);
+  });
+
   // Load example page and pass in an example by id
   app.get('/services/', function(req, res) {
     res.render('services');
