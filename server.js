@@ -5,6 +5,8 @@ var exphbs = require('express-handlebars');
 var path = require('path');
 
 var db = require('./models');
+var passport = require('passport');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 var app = express();
 var PORT = process.env.PORT || 3000;
