@@ -21,6 +21,16 @@ module.exports = function(app) {
   //session storage. Secret is randomly created. resave forces session to be stored in session storage. setting saveUninitialized to true
   //forces session to be stored in the store. Set to false if you need permissions to allow cookies, reducing server storage usuage
   //or for implementing a required login page
+  passport.serializeUser(function(Customer, done) {
+    done(null, Customer.google_Id);
+  });
+  passport.deserializeUser(function(google_Id, done) {
+    db.Customer.Find({ google_Id: google_Id }).then(function(Customer) {
+      done(null, Customer);
+    });
+  });
+
+  //
   passport.use(
     new GoogleStrategy(
       {
@@ -36,6 +46,7 @@ module.exports = function(app) {
           if (existingUser) {
             //already have user
             console.log('Already have this user: ' + existingUser);
+            done(null, existingUser);
           } else {
             //if not in database create
             db.Customer.create({
@@ -44,6 +55,7 @@ module.exports = function(app) {
               //name: profile.displayName
             }).then(function(newUser) {
               console.log('new user created: ' + newUser);
+              done(null, newUser);
               //res.redirect('/');
             });
           }
