@@ -59,18 +59,38 @@ module.exports = function(app) {
   });
 
   // Load example page and pass in an example by id
-  app.get('/services/', function(req, res) {
-    res.render('services');
+  //app.get('/services/', function(req, res) {
+  //   db.Contractor.findAll({}).then(function(contractInfo) {
+  //   res.render('services', { contractor: contractInfo});
+  //   });
+  // });
 
-    // db.Example.findOne({ where: { id: req.params.id } }).then(function(
-    //   dbExample
-    // ) {
-    //   res.render('example', {
-    //     example: dbExample
-    //   });
-    // });
+  app.get('/services/cleaner', function(req, res) {
+    db.Contractor.findAll({ where: { contrcategory: 'cleaner' } }).then(
+      function(contractInfo) {
+        console.log('htmlroute catego =cleaner');
+        res.render('services', { contractor: contractInfo });
+      }
+    );
   });
 
+  app.get('/services/chef', function(req, res) {
+    db.Contractor.findAll({
+      where: { contrcategory: 'chef' }
+    }).then(function(contractInfo) {
+      console.log('category = chef');
+      res.render('services', { contractor: contractInfo });
+    });
+  });
+
+  app.get('/services/laundry', function(req, res) {
+    db.Contractor.findAll({
+      where: { contrcategory: 'laundry' }
+    }).then(function(contractInfo) {
+      console.log('category = laundry');
+      res.render('services', { contractor: contractInfo });
+    });
+  });
   // Load example page and pass in an example by id
   app.get('/example/:id', function(req, res) {
     db.Example.findOne({ where: { id: req.params.id } }).then(function(

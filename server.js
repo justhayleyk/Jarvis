@@ -40,7 +40,7 @@ var syncOptions = { force: false };
 // clearing the `testdb`
 
 //if (process.env.NODE_ENV === 'development') {
-//  syncOptions.force = true;
+// syncOptions.force = true;
 // }
 
 // console.log('env:', process.env.NODE_ENV);

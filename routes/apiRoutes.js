@@ -4,6 +4,7 @@
 var db = require('../models');
 
 module.exports = function(app) {
+
   // Contractor sign up
   app.post('/api/contractor/SignUp', function(req, res) {
     db.Contractor.create(req.body).then(function(dbSignUp) {
@@ -61,6 +62,40 @@ module.exports = function(app) {
   app.get('/api/Jobs', function(req, res) {
     db.Job.findAll({}).then(function(dbPost) {
       res.json(dbPost);
+
+  // Get all examples
+  app.get('/api/services/cleaner', function(req, res) {
+    db.Contractor.findAll({ where: { contrcategory: 'cleaner' } }).then(
+      function(contractInfo) {
+        console.log('apiroutes cleaner');
+        res.json(contractInfo);
+      }
+    );
+  });
+
+  app.get('/api/services/chef', function(req, res) {
+    db.Contractor.findAll({ where: { contrcategory: 'chef' } }).then(function(
+      contractInfo
+    ) {
+      console.log('apiroutes chef');
+      res.json(contractInfo);
+    });
+  });
+
+  app.get('/api/services/laundry', function(req, res) {
+    db.Contractor.findAll({ where: { contrcategory: 'laundry' } }).then(
+      function(contractInfo) {
+        console.log('apiroutes laundry');
+        res.json(contractInfo);
+      }
+    );
+  });
+
+  // Create a new example
+  app.post('/api/examples', function(req, res) {
+    db.Example.create(req.body).then(function(dbExample) {
+      res.json(dbExample);
+
     });
   });
 
