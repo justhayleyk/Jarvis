@@ -2,18 +2,23 @@ module.exports = function(sequelize, DataTypes) {
   var Customer = sequelize.define('Customer', {
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       validation: {
         is: ['^[a-z]+$', 'i']
       }
     },
+    google_Id: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      unique: true
+    },
     address: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     phone: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       validation: {
         //will not allow letters
         not: ['[a-z]', 'i']
@@ -21,7 +26,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
       validation: {
         len: {
@@ -35,11 +40,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     date: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: true
     },
     jobs: {
       type: DataTypes.TEXT,
-      allowNull: false,
+      allowNull: true,
       validation: {
         len: {
           args: [100, 100000],
@@ -50,7 +55,7 @@ module.exports = function(sequelize, DataTypes) {
     payment: DataTypes.DECIMAL,
     comments: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     status: {
       type: DataTypes.BOOLEAN,
