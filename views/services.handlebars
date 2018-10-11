@@ -2,12 +2,15 @@
   <div class="container">
     <div class="row">
       {{!-- newcard --}}
+      {{#each contractor}}
       <div class="col-md-4 col-sm-6">
 
         <div class="card-container">
+
           <div class="card">
             <div class="front">
               <div class="cover">
+
                 <img src="/images/female-cleaner.jpg" />
               </div>
               <div class="user">
@@ -15,16 +18,19 @@
               </div>
               <div class="content">
                 <div class="main">
-                  <h3 class="name">Maid.com</h3>
-                  <p class="profession">Personal Cleaners</p>
-                  <p class="text-center">We know your are hard at work and do not have time to keep everything tidy.
-                    That is where we come in!</p>
+                  <h3 class="name">{{this.contrname}}</h3>
+                  <p class="profession"> {{this.contrcategory}}</p>
+                  <p class="text-center">{{this.contraddress}} Rate: {{this.contrrate}} </p>
                 </div>
                 <div class="footer">
-                  <i class="fa fa-mail-forward"></i> Learn More
+                  <div class="text-center">
+                    <p>tel: {{this.contrphone}} {{this.contremail}}</p>
+                  </div>
                 </div>
               </div>
-            </div> <!-- end front panel -->
+            </div>
+
+            <!-- end front panel -->
             <div class="back">
               <div class="header">
                 <h5 class="motto">"Excellent service with great discipline. I find their cleaning very thorough and
@@ -33,14 +39,8 @@
               <div class="content">
                 <div class="main">
                   <h4 class="text-center">What we do</h4>
-                  <p class="text-center">Our cleaning ladies are trained to starts to clean any room in your house by
-                    the routine task of dusting and spider web removal. She goes around a room and dusts down all
-                    walls and crown moldings, picture frames, any woodwork, shelves, lamps, window/door ledges and
-                    frames, blinds, curtains…anything that could potentially collect the dust on its surface. She
-                    double checks the webs are removed effectively then she proceed to a room specific cleaning
-                    tasks.</p>
-
-
+                  <p class="text-center">Reviews: {{this.contrreview}}
+                  </p>
 
                 </div>
               </div>
@@ -53,17 +53,15 @@
                 </div>
               </div>
             </div> <!-- end back panel -->
+
           </div> <!-- end card -->
+
         </div> <!-- end card-container -->
+
       </div> <!-- end col sm 3 -->
-
-
-
-
-
-
-
+      {{/each}}
 
     </div>
   </div>
 </section>
+<script type="text/javascript" src="/js/displayservices.js"></script>
