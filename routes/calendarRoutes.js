@@ -30,12 +30,23 @@ module.exports = function(app) {
       },
       function(accessToken, refreshToken, profile, done) {
         //console.log(profile.id);
-        db.Customer.create({
-          google_Id: profile.id
-          //name: profile.displayName
-        }).then(function(newUser) {
-          console.log('new user created: ' + newUser);
-          //res.redirect('/');
+        db.Customer.findOne({ where: { google_Id: profile.id } }).then(function(
+          existingUser
+        ) {
+          if (existingUser) {
+            //already have user
+            console.log('Already have this user: ' + existingUser);
+          } else {
+            //if not in database create
+            db.Customer.create({
+              google_Id: profile.id,
+              name: profile.displayName
+              //name: profile.displayName
+            }).then(function(newUser) {
+              console.log('new user created: ' + newUser);
+              //res.redirect('/');
+            });
+          }
         });
       }
     )
