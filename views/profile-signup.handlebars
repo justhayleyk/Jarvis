@@ -1,0 +1,65 @@
+<section class="login-block">
+  <div class="container">
+    <div class="containerLogin">
+      <div class="row">
+        <div class="col-md-4 login-sec">
+          <h2 class="text-center">Complete Sign Up Now</h2>
+          <form class="login-form">
+            <div class="profileName">
+              <h1>Some Additional Information {{req.user}}</h1>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="text-uppercase">Address</label>
+              <input id="userAddress" type="text" class="form-control" placeholder="">
+
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="text-uppercase">Phone Number</label>
+              <input id="userPhone" type="text" class="form-control" placeholder="4161234567">
+
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="text-uppercase">Email</label>
+              <input id="userEmail" type="text" class="form-control" placeholder="johnsmith@youremail.com">
+
+            </div>
+
+            <div class="form-check">
+              <label class="form-check-label">
+                <input type="checkbox" class="form-check-input">
+                <small>Remember Me</small>
+              </label>
+              <button type="submit" class="btn btn-login float-right" id="submitProfile">Submit</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  $('#submitProfile').on('click', function () {
+    event.preventDefault();
+    console.log('profile');
+    var userAddressProfile = $('#userAddress')
+      .val()
+      .trim();
+    var userPhoneProfile = $('#userPhone')
+      .val()
+      .trim();
+    var userEmailProfile = $('#userEmail')
+      .val()
+      .trim();
+
+    $.ajax({
+      type: 'POST',
+      url: '/profile/Customer/update',
+      data: {
+        userAddress: userAddressProfile,
+        userPhone: userPhoneProfile,
+        userEmail: userEmailProfile
+      }
+    });
+  });
+</script>

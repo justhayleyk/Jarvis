@@ -1,35 +1,47 @@
 module.exports = function(sequelize, DataTypes) {
   var Customer = sequelize.define('Customer', {
+
+    google_Id: {
+    type: DataTypes.STRING,
+      allowNull: true,
+      unique: true
+    },
+
+    
+
+    google_token_access: {
+     type: DataTypes.STRING,
+      allowNull: true
+    },
+
+    google_refresh_token: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     custUserName: {
       type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validation: {
-        is: ['^[a-z]+$', 'i']
-      }
+      allowNull: true,
+      unique: true
     },
     custName: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validation: {
-        is: ['^[a-z]+$', 'i']
-      }
+      allowNull: true
     },
     custAddress: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     custPhone: {
-      type: DataTypes.BIGINT(10),
-      allowNull: false,
+      type: DataTypes.TEXT,
+      allowNull: true,
       validation: {
         not: ['[a-z]', 'i'],
-        len: [10]
+        len: [6, 13]
       }
     },
     custEmail: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       unique: true,
       validation: {
         len: {
@@ -43,7 +55,8 @@ module.exports = function(sequelize, DataTypes) {
     },
     custPassword: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
+
     },
     custpayment: DataTypes.DECIMAL,
     custnotes: {

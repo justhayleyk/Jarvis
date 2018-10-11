@@ -10,8 +10,15 @@ console.log('listening' + server.listen(4300));
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var path = require('path');
+
+//var cookieSession = require('cookie-session');
+var session = require('express-session');
+
 require('dotenv').config();
+
 var db = require('./models');
+var passport = require('passport');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // var app = express();
 var PORT = process.env.PORT || 3000;
@@ -34,10 +41,31 @@ io.on('connection', function(socket) {
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+/*app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.COOKIE_KEY]
+  })
+);*/
+app.use(
+  session({
+    secret: process.env.COOKIE_KEY,
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+//use for passport session
+//app.use(express.session());
 app.use(express.static('public'));
 
 // Use static
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
+//initialize passport for middleware
 
 // Handlebars
 app.engine(

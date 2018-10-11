@@ -1,0 +1,88 @@
+<section class="login-block">
+  <div class="container">
+    <div class="containerLogin">
+      <div class="row">
+        <div class="col-md-4 login-sec">
+          <h2 class="text-center">Post to the Calendar</h2>
+          <form class="login-form">
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="text-uppercase">Summary</label>
+              <input id="calendarSummary" type="text" class="form-control" placeholder="Summary for the event">
+
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="text-uppercase">Location</label>
+              <input id="calendarLocation" type="text" class="form-control" placeholder="800 Howard St., San Francisco, CA 94103">
+
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="text-uppercase">Description</label>
+              <input id="calendarDescription" type="text" class="form-control" placeholder="Cleaning up house.">
+
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="text-uppercase">Start Date</label>
+              <input id="calendarStartDate" type="text" class="form-control" placeholder="YYYY-MM-DD">
+
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="text-uppercase">Start Time</label>
+              <input id="calendarStartTime" type="text" class="form-control" placeholder="24 hour time. eg. 8:23p.m => 20:23">
+
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="text-uppercase">End Date</label>
+              <input id="calendarEndDate" type="text" class="form-control" placeholder="YYYY-MM-DD">
+
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1" class="text-uppercase">End Time</label>
+              <input id="calendarEndTime" type="text" class="form-control" placeholder="24 hour time. eg. 1:00a.m => 01:00">
+
+            </div>
+
+            <div class="form-check">
+              <button type="submit" class="btn btn-login float-right" id="submitCalendar">Submit</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  $('#submitCalendar').on('click', function () {
+    event.preventDefault();
+    console.log('dashboard');
+    var calendarSummary = $('#calendarSummary')
+      .val();
+    var calendarLocation = $('#calendarLocation')
+      .val();
+    var calendarDescription = $('#calendarDescription')
+      .val();
+    var calendarStartDate = $('#calendarStartDate')
+      .val();
+    var calendarEndDate = $('#calendarEndDate')
+      .val();
+    var calendarStartTime = $('#calendarStartTime')
+      .val();
+    var calendarEndTime = $('#calendarEndTime')
+      .val();
+
+    $.ajax({
+      type: 'POST',
+      url: '/dashboard/calendar',
+      data: {
+        summary: calendarSummary,
+        location: calendarLocation,
+        description: calendarDescription,
+        startDate: calendarStartDate,
+        endDate: calendarEndDate,
+        startTime: calendarStartTime,
+        endTime: calendarEndTime
+      }
+    });
+    console.log("data sent calendar event made")
+  });
+</script>
