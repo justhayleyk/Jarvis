@@ -1,30 +1,40 @@
 module.exports = function(sequelize, DataTypes) {
   var Customer = sequelize.define('Customer', {
-    name: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      validation: {
-        is: ['^[a-z]+$', 'i']
-      }
-    },
     google_Id: {
       type: DataTypes.STRING,
       allowNull: true,
       unique: true
     },
-    address: {
+    google_token_access: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    phone: {
-      type: DataTypes.TEXT,
+    google_refresh_token: {
+      type: DataTypes.STRING,
       allowNull: true
-      /*validation: {
-        //will not allow letters
-        not: ['[a-z]', 'i']
-      }*/
     },
-    email: {
+    custUserName: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      unique: true
+    },
+    custName: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    custAddress: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    custPhone: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      validation: {
+        not: ['[a-z]', 'i'],
+        len: [6, 13]
+      }
+    },
+    custEmail: {
       type: DataTypes.STRING,
       allowNull: true,
       unique: true,
@@ -38,26 +48,16 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
-    date: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-    jobs: {
-      type: DataTypes.TEXT,
-      allowNull: true,
-      validation: {
-        len: {
-          args: [100, 100000],
-          msg: 'Put a lots of details into your job'
-        }
-      }
-    },
-    payment: DataTypes.DECIMAL,
-    comments: {
+    custPassword: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    status: {
+    custpayment: DataTypes.DECIMAL,
+    custnotes: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    custstatus: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true
