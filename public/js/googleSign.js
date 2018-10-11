@@ -4,17 +4,7 @@ $(document).ready(function() {
   //setting an empty variable equal to null
   console.log('js file is working');
   var windowOpen;
-  /*$.ajax({
-    type: 'GET',
-    url: '/login/',
-    data: loggedin
-  }).done(function(response) {
-    var loggedin = response.loggedin;
-  });*/
   //on click of the login button, a new window(popup) will open to the specified href, with a width and height pre-defined
-  //if ((loggedin = true)) {
-  //$('.googleAuth').css('display', 'none');
-  //} else {
   $('.googleAuth').on('click', function() {
     event.preventDefault();
     //this url was generated from the calenderRoutes.js file url variable
@@ -26,7 +16,6 @@ $(document).ready(function() {
       'Width=500px, height: 700px'
     );
   });
-  //}
   //this function works with the file under public/oauthcallback/callback.html
   //when this window (calender-login page) gets a message it executes
   window.onmessage = function(event) {
@@ -80,4 +69,43 @@ $(document).ready(function() {
     signOut();
   });*/
   //end of document .ready jqeury function
+  $('.signUpUser').on('click', function() {
+    event.preventDefault();
+    console.log('yes user');
+    var name = $('#name')
+      .val()
+      .trim();
+    var userName = $('#userName')
+      .val()
+      .trim();
+    var userAddress = $('#userAddress')
+      .val()
+      .trim();
+    var userPhone = $('#userPhone')
+      .val()
+      .trim();
+    var userEmail = $('#userEmail')
+      .val()
+      .trim();
+    var userPassword = $('#userPassword')
+      .val()
+      .trim();
+
+    $.ajax({
+      type: 'POST',
+      url: '/signup/',
+      data: {
+        userName: userName,
+        name: name,
+        userAddress: userAddress,
+        userPhone: userPhone,
+        userEmail: userEmail,
+        userPassword: userPassword
+      }
+    });
+  });
+  $('.signUpContractor').on('click', function() {
+    event.preventDefault();
+    console.log('yes contractor');
+  });
 });
