@@ -106,6 +106,9 @@ module.exports = function(app) {
       //res.render('oauthcallback');
 
       res.redirect('/');
+      console.log('The entire cookie: ' + req.user);
+      console.log('The name of the user: ' + req.user.name);
+      console.log('The google id of the user: ' + req.user.google_Id);
     }
   );
   //var loggedin = false;
