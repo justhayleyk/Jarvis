@@ -120,6 +120,10 @@ module.exports = function(app) {
     // });
     //console.log(req.user);
   });
+  app.get('/logout', function(req, res) {
+    req.logout();
+    res.redirect('/login');
+  });
   app.get(
     '/loginGoogle',
     passport.authenticate('google', {
