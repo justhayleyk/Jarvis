@@ -3,6 +3,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var path = require('path');
+var cookieSession = require('cookie-session');
 
 var db = require('./models');
 var passport = require('passport');
