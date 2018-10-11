@@ -1,25 +1,26 @@
 module.exports = function(sequelize, DataTypes) {
   var Contractor = sequelize.define('Contractor', {
-    name: {
+    contrname: {
       type: DataTypes.STRING,
       allowNull: false,
       validation: {
         is: ['^[a-z]+$', 'i']
       }
     },
-    address: {
+    contraddress: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    phone: {
-      type: DataTypes.INTEGER,
+    contrphone: {
+      type: DataTypes.BIGINT(10),
       allowNull: false,
       validation: {
         //will not allow letters
-        not: ['[a-z]', 'i']
+        //  not: ['[a-z]', 'i'],
+        len: [10]
       }
     },
-    email: {
+    contremail: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
@@ -33,18 +34,22 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
-    category: {
+    contrpswrd: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    contrcategory: {
       type: DataTypes.STRING,
       allowNull: false,
       validation: {
         is: ['^[a-z]+$', 'i']
       }
     },
-    rate: {
+    contrrate: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: true
     },
-    review: {
+    contrreview: {
       type: DataTypes.TEXT,
       allowNull: true,
       validation: {
@@ -54,7 +59,7 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
-    status: {
+    contrstatus: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: true

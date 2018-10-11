@@ -1,16 +1,42 @@
 require('dotenv').config();
 var express = require('express');
+var http = require('http');
+var app = express();
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+server.listen(4300);
+console.log('listening' + server.listen(4300));
+
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var path = require('path');
+
 //var cookieSession = require('cookie-session');
 var session = require('express-session');
+
+require('dotenv').config();
+
 var db = require('./models');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
-var app = express();
+// var app = express();
 var PORT = process.env.PORT || 3000;
+
+// IO dependencies
+// var http = require('http').Server(app);
+// var io = require('socket.io')(http);
+
+io.on('connection', function(socket) {
+  console.log('IO is connected');
+  socket.on('chat message', function(msg) {
+    io.emit('chat message', msg);
+  });
+});
+
+// http.listen(5000, function() {
+//   console.log('Socket is listening on *:' + 5000);
+// });
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -63,8 +89,8 @@ var syncOptions = { force: false };
 // If running a test, set syncOptions.force to true
 // clearing the `testdb`
 
-// if (process.env.NODE_ENV === 'development') {
-//   syncOptions.force = true;
+//if (process.env.NODE_ENV === 'development') {
+// syncOptions.force = true;
 // }
 
 // console.log('env:', process.env.NODE_ENV);

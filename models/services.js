@@ -1,5 +1,5 @@
-var contractors = require('./contractors');
-var customers = require('./customers');
+var Contractor = require('./contractors');
+var Customer = require('./customers');
 
 module.exports = function(sequelize, DataTypes) {
   var Job = sequelize.define('Job', {
@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
   Job.associate = function(models) {
     // Associating Jobs with Jobs
     // When an Jobs is deleted, also delete any associated Jobs
-    Job.belongsTo(models.Customer, {
+    Job.belongsTo(models.Contractor, {
       foreignKey: {
         allowNull: false
       }

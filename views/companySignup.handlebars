@@ -1,0 +1,50 @@
+<section class="login-block">
+  <div class="container">
+    <div class="containerLogin">
+      <div class="row">
+        <div class="col-md-12 login-sec">
+          <h2 class="text-center">Join our Network</h2>
+          <form action="/api/contractor/SignUp" method="POST" class="login-form">
+            <div class="form-group">
+              <label for="name" class="text-uppercase">Company Name</label>
+              <input name="contrname" type="text" class="form-control" placeholder="Smitherson's Catering">
+            </div>
+            <div class="form-group">
+              <label for="categorySelect">Category</label>
+              <select name="contrcategory" class="form-control" id="categorySelect" required>
+                <option>Maids</option>
+                <option>Catering</option>
+                <option>Laundry</option>
+              </select>
+            </div>
+            {{!-- <div class="form-group">
+              <label for="name" class="text-uppercase">Contact Name</label>
+              <input name="contactName" type="text" class="form-control" placeholder="John Smith">
+            </div> --}}
+            {{!-- <div class="form-group">
+              <label for="companyUserName" class="text-uppercase">User Name</label>
+              <input name="userName" type="text" class="form-control" placeholder="johnsmith123">
+            </div> --}}
+            <div class="form-group">
+              <label for="companyAddress" class="text-uppercase">Company Address</label>
+              <input name="contraddress" type="text" class="form-control" placeholder="42 Wallaby Way, Sydney">
+            </div>
+            <div class="form-group">
+              <label for="companyPhone" class="text-uppercase">Company Phone Number</label>
+              <input name="contrphone" type="text" class="form-control" placeholder="4161234567">
+            </div>
+            <div class="form-group">
+              <label for="companyEmail" class="text-uppercase">Contact Email</label>
+              <input name="contremail" type="text" class="form-control" placeholder="johnsmith@youremail.com">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1" class="text-uppercase">Password</label>
+              <input name="contrpswrd" type="password" class="form-control" placeholder="******">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

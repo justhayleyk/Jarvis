@@ -36,24 +36,22 @@ body {
 /* LOGIN + SIGN UP */
 
 .login-block {
-  background: #de6262; /* fallback for old browsers */
+  background: #62c5de; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to bottom,
-    #ffb88c,
-    #de6262
+    #8cffb2,
+    #62c5de
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to bottom,
-    #ffb88c,
-    #de6262
+    #8cffb2,
+    #62c5de
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   float: left;
   width: 100%;
   padding: 50px 0;
 }
 .banner-sec {
-  background: url(https://static.pexels.com/photos/33972/pexels-photo.jpg)
-    no-repeat left bottom;
   background-size: cover;
   min-height: 500px;
   border-radius: 0 10px 10px 0;
@@ -72,33 +70,33 @@ body {
   left: 5%;
 }
 .login-sec {
-  padding: 50px 30px;
+  padding: 50px 50px;
   position: relative;
 }
 .login-sec .copy-text {
   position: absolute;
-  width: 80%;
+  width: 100%;
   bottom: 20px;
   font-size: 13px;
   text-align: center;
 }
 .login-sec .copy-text i {
-  color: #feb58a;
+  color: #8cffb2;
 }
 .login-sec .copy-text a {
-  color: #e36262;
+  color: #62a2de;
 }
 .login-sec h2 {
   margin-bottom: 30px;
   font-weight: 800;
   font-size: 30px;
-  color: #de6262;
+  color: #62a2de;
 }
 .login-sec h2:after {
   content: ' ';
   width: 100px;
   height: 5px;
-  background: #feb58a;
+  background: #8cffb2;
   display: block;
   margin-top: 20px;
   border-radius: 3px;
@@ -106,7 +104,7 @@ body {
   margin-right: auto;
 }
 .btn-login {
-  background: #de6262;
+  background: #62a2de;
   color: #fff;
   font-weight: 600;
 }
@@ -120,6 +118,11 @@ body {
   color: #fff;
   font-weight: 600;
 }
+.banner-textdark h2 {
+  color: rgb(44, 44, 44);
+  font-weight: 600;
+}
+
 .banner-text h2:after {
   content: ' ';
   width: 100px;

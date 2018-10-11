@@ -1,14 +1,19 @@
 module.exports = function(sequelize, DataTypes) {
   var Customer = sequelize.define('Customer', {
+
     google_Id: {
-      type: DataTypes.STRING,
+    type: DataTypes.STRING,
       allowNull: true,
       unique: true
     },
+
+    
+
     google_token_access: {
-      type: DataTypes.STRING,
+     type: DataTypes.STRING,
       allowNull: true
     },
+
     google_refresh_token: {
       type: DataTypes.STRING,
       allowNull: true
@@ -51,6 +56,7 @@ module.exports = function(sequelize, DataTypes) {
     custPassword: {
       type: DataTypes.STRING,
       allowNull: true
+
     },
     custpayment: DataTypes.DECIMAL,
     custnotes: {
