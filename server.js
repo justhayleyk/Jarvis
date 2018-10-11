@@ -16,7 +16,16 @@ var PORT = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('public'));
+app.use(
+  cookieSession({
+    maxAge: 24 * 60 * 60 * 1000,
+    keys: [process.env.COOKIE_KEY]
+  })
+);
+//initialize passport for middleware
 app.use(passport.initialize());
+//use for passport session
+app.use(passport.session());
 
 // Use static
 app.use(express.static(path.join(__dirname, 'public')));
