@@ -48,27 +48,35 @@ $(document).ready(function() {
       url: '/token',
       data: { code: code }
     });
-  };
-  //signOut button js
-  //needs work
-  /* $('#logOut').on('click', function() {
-    console.log('Logout');
-    function signOut() {
-      //google api method fn
-      // var auth2 = gapi.auth2.getAuthInstance();
-      //on successful sign out
-      //auth2.signOut().then(function() {
-      //alert that user has signed out
-      alert('Successfully Signed out');
-      //change hidden sign in button back to being visible
-      $('#login').css('display', 'block');
-      //change profile data being shown back to being hidden
-      $('#logOut').css('display', 'none');
-      //});
-    }
-    signOut();
+  }; //
+  /*$('#submitProfile').on('click', function() {
+    event.preventDefault();
+    console.log('profile');
+    var userNameProfile = $('#userName')
+      .val()
+      .trim();
+    var userAddressProfile = $('#userAddress')
+      .val()
+      .trim();
+    var userPhoneProfile = $('#userPhone')
+      .val()
+      .trim();
+    var userEmailProfile = $('#userEmail')
+      .val()
+      .trim();
+
+    $.ajax({
+      type: 'POST',
+      url: '/profile/update',
+      data: {
+        userName: userNameProfile,
+        userAddress: userAddressProfile,
+        userPhone: userPhoneProfile,
+        userEmail: userEmailProfile
+      }
+    });
   });*/
-  //end of document .ready jqeury function
+  //
   $('.signUpUser').on('click', function() {
     event.preventDefault();
     console.log('yes user');
