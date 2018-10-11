@@ -17,12 +17,12 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     },
     phone: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      validation: {
+      type: DataTypes.TEXT,
+      allowNull: true
+      /*validation: {
         //will not allow letters
         not: ['[a-z]', 'i']
-      }
+      }*/
     },
     email: {
       type: DataTypes.STRING,
