@@ -26,18 +26,18 @@ VALUES
 ());
 
 INSERT INTO customers
-    (custname, custaddress, custphone, custemail, custpswrd, custpayment, custnotes, createdAt, updatedAt)
+    (custUserName, custname, custaddress, custphone, custemail, custpswrd, custpayment, custnotes, createdAt, updatedAt)
 VALUES
-    ("Ankit", "335 Webb Dr., Misssissauga, ON, L0L 4Z9", 9051234567, "ankit@gmail.com", "mypasww", 80, "I would like to have 2hrs done in the morning", CURRENT_TIMESTAMP
+    ("Master", "Ankit", "335 Webb Dr., Misssissauga, ON, L0L 4Z9", 9051234567, "ankit@gmail.com", "mypasww", 80, "I would like to have 2hrs done in the morning", CURRENT_TIMESTAMP
 (), CURRENT_TIMESTAMP
 ()),
-("Denis", "700 South Service Rd., Misssissauga, ON, L0L 4Z9", 4161234567, "denis@gmail.com","mypasww", 40, "I like italian food", CURRENT_TIMESTAMP
+("KingPin", "Denis", "700 South Service Rd., Misssissauga, ON, L0L 4Z9", 4161234567, "denis@gmail.com","mypasww", 40, "I like italian food", CURRENT_TIMESTAMP
 (), CURRENT_TIMESTAMP
 ()),
-("Ali", "250 Burhnamthorpe Dr. Misssissauga, ON, L0L 4Z9", 9051234567, "ali@gmail.com","mypasww", 30, "Don't come in the morning", CURRENT_TIMESTAMP
+("BossMan", "Ali", "250 Burhnamthorpe Dr. Misssissauga, ON, L0L 4Z9", 9051234567, "ali@gmail.com","mypasww", 30, "Don't come in the morning", CURRENT_TIMESTAMP
 (), CURRENT_TIMESTAMP
 ()),
-("Team1", "1234 Mississauga Rd. Misssissauga, ON, L0L 4Z9", 4161234567, "wecook2@gmail.com", "mypasww", 40, "I have an event", CURRENT_TIMESTAMP
+("theATeam", "Team1", "1234 Mississauga Rd. Misssissauga, ON, L0L 4Z9", 4161234567, "wecook2@gmail.com", "mypasww", 40, "I have an event", CURRENT_TIMESTAMP
 (), CURRENT_TIMESTAMP
 ());
 

@@ -1,17 +1,25 @@
 module.exports = function(sequelize, DataTypes) {
   var Customer = sequelize.define('Customer', {
-    custname: {
+    custUserName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validation: {
+        is: ['^[a-z]+$', 'i']
+      }
+    },
+    custName: {
       type: DataTypes.STRING,
       allowNull: false,
       validation: {
         is: ['^[a-z]+$', 'i']
       }
     },
-    custaddress: {
+    custAddress: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    custphone: {
+    custPhone: {
       type: DataTypes.BIGINT(10),
       allowNull: false,
       validation: {
@@ -19,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
         len: [10]
       }
     },
-    custemail: {
+    custEmail: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
@@ -33,14 +41,14 @@ module.exports = function(sequelize, DataTypes) {
         }
       }
     },
-    custpswrd: {
+    custPassword: {
       type: DataTypes.STRING,
       allowNull: false
     },
     custpayment: DataTypes.DECIMAL,
     custnotes: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     custstatus: {
       type: DataTypes.BOOLEAN,
