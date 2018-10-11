@@ -4,7 +4,6 @@
 var db = require('../models');
 
 module.exports = function(app) {
-
   // Contractor sign up
   app.post('/api/contractor/SignUp', function(req, res) {
     console.log(req.body);
@@ -62,7 +61,8 @@ module.exports = function(app) {
   app.get('/api/Jobs', function(req, res) {
     db.Job.findAll({}).then(function(dbPost) {
       res.json(dbPost);
-
+    });
+  });
   // Get all examples
   app.get('/api/services/cleaner', function(req, res) {
     db.Contractor.findAll({ where: { contrcategory: 'cleaner' } }).then(
@@ -95,7 +95,6 @@ module.exports = function(app) {
   app.post('/api/examples', function(req, res) {
     db.Example.create(req.body).then(function(dbExample) {
       res.json(dbExample);
-
     });
   });
 
