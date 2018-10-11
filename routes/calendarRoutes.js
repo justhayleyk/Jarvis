@@ -14,6 +14,7 @@ const fs = require('fs');
 const readline = require('readline');
 //importing the googleapis
 const { google } = require('googleapis');
+var gcal = require('google-calendar');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 //exporting everything for use in server file
@@ -53,6 +54,10 @@ module.exports = function(app) {
       function(accessToken, refreshToken, profile, done) {
         // console.log(profile);
         // console.log(profile.emails.value);
+        console.log('\n\nAccessToken \n: ' + accessToken);
+        var google_calendar = new gcal.GoogleCalendar(accessToken);
+        console.log('\n\n\n' + google_calendar + '\n\n\n');
+
         db.Customer.findOne({ where: { google_Id: profile.id } }).then(function(
           existingUser
         ) {
@@ -76,6 +81,7 @@ module.exports = function(app) {
       }
     )
   );
+
   //
 
   // generate a url that asks permissions for Google calender view only and Google Calendar modifying events.
@@ -103,6 +109,8 @@ module.exports = function(app) {
   app.get(
     '/loginGoogle',
     passport.authenticate('google', {
+      accessType: 'offline',
+      prompt: 'consent',
       scope: [
         'https://www.googleapis.com/auth/calendar',
         'https://www.googleapis.com/auth/calendar.events',
@@ -127,9 +135,6 @@ module.exports = function(app) {
       //res.redirect('/');
     }
   );
-  app.get('/dashboard', authorizationCheck, function(req, res) {
-    console.log('working');
-  });
   app.get('/profile/account', authorizationCheck, function(req, res) {
     //res.send('You are logged in: ' + req.user.name);
     res.render('profile-signup');
@@ -153,23 +158,28 @@ module.exports = function(app) {
     });
     return res.redirect('/');
   });
-  //console.log(`SignedInUserName: \n ${SignedInUserName}`);
-  //var loggedin = false;
-  //the login page will send the oauth code on this
-  /*app.post('/token', function(req, res) {
-    //this will implement a session for storage
-    var session = req.session;
-    //async functions. This will just wait 4 seconds until it executes. Unecesary, but makes sure fn
-    //won't execute till credentials are set, just a precautionary step.
-    setTimeout(function() {
-      addEvents();
-      console.log('sucess');
-    }, 4000);
-    //every refresh token usually has about 3600 milliseconds of lifespan. This function will automatically
-    //renew the refresh token if it expires.
-    //this is just a test function to add an event. It does work. Since credential are present by now,
-    //have the user specify what summary they want for an event, its description, start and end times (need these 3 at minimum).
-    function addEvents(auth) {
+  app.get('/dashboard', authorizationCheck, function(req, res) {
+    console.log('dashboard');
+    res.render('dashboard');
+  });
+
+  app.post('/dashboard/calendar', authorizationCheck, function(req, res) {
+    console.log('\n working \n');
+    addEvents();
+
+    var calendarSummary = req.body.summary;
+    var calendarDescription = req.body.description;
+    var calendarLocation = req.body.location;
+    var calendarStartDate = req.body.startDate;
+    var calendarEndDate = req.body.endDate;
+    var calendarStartTime = req.body.startTime;
+    var calendarEndTime = req.body.endTime;
+    /* console.log(
+      `summary: ${calendarSummary}\n description: ${calendarDescription} \n location: ${calendarLocation} 
+      \n start date: ${calendarStartDate} \n end date: ${calendarEndDate} \n start time: ${calendarStartTime} 
+      \n end time: ${calendarEndTime}`
+    );*/
+    function addEvents() {
       var event = {
         summary: 'test',
         location: '800 Howard St., San Francisco, CA 94103',
@@ -203,11 +213,11 @@ module.exports = function(app) {
       //belong to the primary user whose tokens are present(user).
       calendar.events.insert(
         {
-          auth: oauth2Client,
+          auth: auth,
           calendarId: 'primary',
           resource: event
         }, //if there is an error, the console log will show what error there is
-        //usually there will be a maximum usuage error, if so create new credentials at
+        //usually there w ill be a maximum usuage error, if so create new credentials at
         //https://console.developers.google.com/ and make the credentials for the oauth login
         //set the uri to http://localhost:3000 and the callback to http://localhost:3000/oauthcallback.
         //when pushing to production you will need new credentials for it.
@@ -222,5 +232,22 @@ module.exports = function(app) {
         }
       );
     }
-  });*/
+  });
+  //console.log(`SignedInUserName: \n ${SignedInUserName}`);
+  //var loggedin = false;
+  //the login page will send the oauth code on this
+  /*app.post('/token', function(req, res) {
+    //this will implement a session for storage
+    var session = req.session;
+    //async functions. This will just wait 4 seconds until it executes. Unecesary, but makes sure fn
+    //won't execute till credentials are set, just a precautionary step.
+    setTimeout(function() {
+      addEvents();
+      console.log('sucess');
+    }, 4000);
+    //every refresh token usually has about 3600 milliseconds of lifespan. This function will automatically
+    //renew the refresh token if it expires.
+    //this is just a test function to add an event. It does work. Since credential are present by now,
+    //have the user specify what summary they want for an event, its description, start and end times (need these 3 at minimum).
+    */
 };
