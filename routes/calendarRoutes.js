@@ -1,5 +1,6 @@
 //requiring in dotenv to store in google client Id, client secret id and uri redirect
 require('dotenv').config();
+var db = require('../models');
 //require in express to build local server
 var express = require('express');
 //rerouting pages
@@ -13,72 +14,45 @@ const fs = require('fs');
 const readline = require('readline');
 //importing the googleapis
 const { google } = require('googleapis');
+var passport = require('passport');
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 //exporting everything for use in server file
 module.exports = function(app) {
   //session storage. Secret is randomly created. resave forces session to be stored in session storage. setting saveUninitialized to true
   //forces session to be stored in the store. Set to false if you need permissions to allow cookies, reducing server storage usuage
   //or for implementing a required login page
-  app.use(
-    Session({
-      secret: process.env.SECRET_SESSION,
-      resave: true,
-      saveUninitialized: false,
-      cookie: {
-        expires: 600000
+  passport.use(
+    new GoogleStrategy(
+      {
+        clientID: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET_ID,
+        callbackURL: process.env.URI
+      },
+      function(accessToken, refreshToken, profile, done) {
+        console.log(profile.id);
+        db.Customer.create({
+          google_Id: profile.id
+          //name: profile.displayName
+        }).then(function() {
+          console.log('wTF');
+          //res.redirect('/');
+        });
       }
-    })
+    )
   );
   //
-  var OAuth2 = google.auth.OAuth2;
-  //the auth2client is us
-  const oauth2Client = new google.auth.OAuth2(
-    process.env.CLIENT_ID,
-    process.env.CLIENT_SECRET_ID,
-    process.env.URI
-  );
+
   // generate a url that asks permissions for Google calender view only and Google Calendar modifying events.
   //You can add to scopes here if you need any other apis
-  const scopes = [
-    'https://www.googleapis.com/auth/calendar',
-    'https://www.googleapis.com/auth/calendar.events'
-  ];
+
   //this will generate a url that the user must login into and allow permission for use
-  const url = oauth2Client.generateAuthUrl({
-    // 'online' (default) or 'offline' (gets refresh_token)
-    access_type: 'offline',
-    scope: scopes,
-    prompt: 'consent'
-  });
+
   //custom middleware function. basically gets the necessary code and gets code and saves into session storage
-  var authenticate = function(req, res, next) {
-    // This will provide an object with the access_token and refresh_token.
-    var code = req.body.code;
-    //this fn will get the tokens required(access tokens, refresh tokens, token type, expiration)
-    oauth2Client.getToken(code, function(err, tokens) {
-      if (!err) {
-        var session = req.session;
-        //set the credentials of the user based on the tokens generated using the oauth code
-        //var fullyAuthenticated = req.session.oauth2Client;
-        oauth2Client.setCredentials(tokens);
-        oauth2Client.on('tokens', tokens => {
-          if (tokens.refresh_token) {
-            // still need to store this new refresh token somewhere in the database
-            console.log(tokens.refresh_token);
-          }
-        });
-        session['tokens'] = tokens;
-        console.log(session);
-        // res.send(loggedin);
-      }
-      next();
-      //else
-      // res.redirect('/login');
-    });
-  };
+
   /*app.use(function(req, res, next) {
     authenticate();
   });*/
-  app.get('/login/', authenticate, function(req, res) {
+  app.get('/login/', function(req, res) {
     res.render('login');
 
     // db.Example.findOne({ where: { id: req.params.id } }).then(function(
@@ -89,17 +63,31 @@ module.exports = function(app) {
     //   });
     // });
   });
+  app.get(
+    '/loginGoogle',
+    passport.authenticate('google', {
+      scope: [
+        'https://www.googleapis.com/auth/calendar',
+        'https://www.googleapis.com/auth/calendar.events',
+        'https://www.googleapis.com/auth/plus.login'
+      ]
+    })
+  );
   //when the user agrees and allows permission this page will close, but route is needed to generate the oauth code
   //and send it back to the login page where it will be modified and sent back to the calenderRoutes.js to get
   //access tokens, token type, expiration, refresh token, etc.
-  app.get('/oauthcallback', function(req, res) {
-    //res.render('oauthcallback');
+  app.get(
+    '/oauthcallback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    function(req, res) {
+      //res.render('oauthcallback');
 
-    res.sendFile(path.join(__dirname, '../public/oauthcallback/callback.html'));
-  });
+      res.redirect('/');
+    }
+  );
   //var loggedin = false;
   //the login page will send the oauth code on this
-  app.post('/token', authenticate, function(req, res) {
+  /*app.post('/token', function(req, res) {
     //this will implement a session for storage
     var session = req.session;
     //async functions. This will just wait 4 seconds until it executes. Unecesary, but makes sure fn
@@ -165,5 +153,5 @@ module.exports = function(app) {
         }
       );
     }
-  });
+  });*/
 };
