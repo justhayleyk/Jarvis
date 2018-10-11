@@ -29,12 +29,12 @@ module.exports = function(app) {
         callbackURL: process.env.URI
       },
       function(accessToken, refreshToken, profile, done) {
-        console.log(profile.id);
+        //console.log(profile.id);
         db.Customer.create({
           google_Id: profile.id
           //name: profile.displayName
-        }).then(function() {
-          console.log('wTF');
+        }).then(function(newUser) {
+          console.log('new user created: ' + newUser);
           //res.redirect('/');
         });
       }
