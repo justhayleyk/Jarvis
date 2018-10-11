@@ -3,8 +3,8 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var path = require('path');
-var cookieSession = require('cookie-session');
-
+//var cookieSession = require('cookie-session');
+var session = require('express-session');
 var db = require('./models');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
@@ -15,20 +15,31 @@ var PORT = process.env.PORT || 3000;
 // Middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(express.static('public'));
-app.use(
+
+/*app.use(
   cookieSession({
     maxAge: 24 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_KEY]
   })
+);*/
+app.use(
+  session({
+    secret: process.env.COOKIE_KEY,
+    resave: true,
+    saveUninitialized: true
+  })
 );
-//initialize passport for middleware
+
 app.use(passport.initialize());
-//use for passport session
 app.use(passport.session());
 
+//use for passport session
+//app.use(express.session());
+app.use(express.static('public'));
+
 // Use static
-app.use(express.static(path.join(__dirname, 'public')));
+//app.use(express.static(path.join(__dirname, 'public')));
+//initialize passport for middleware
 
 // Handlebars
 app.engine(
