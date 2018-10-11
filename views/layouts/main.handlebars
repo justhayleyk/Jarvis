@@ -38,9 +38,9 @@
             Services
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="/services">Cleaner</a>
-            <a class="dropdown-item" href="/services">Personal Chef</a>
-            <a class="dropdown-item" href="/services">Laundry Service</a>
+            <a class="dropdown-item" href="/services/cleaner" id="cat-cleaner">Cleaner</a>
+            <a class="dropdown-item" href="/services/chef" id="cat-chef">Personal Chef</a>
+            <a class="dropdown-item" href="/services/laundry" id="cat-laundry">Laundry Service</a>
           </div>
         </li>
         <button onclick="window.location.href='/signup'" style=" margin-right: 5px" class="btn btn-sm btn-outline-secondary"
@@ -79,7 +79,7 @@
 
     <div class="footer-copyright">
       <div class="container">
-        Jarvis © 2018 All Rights Reservered.
+        Jarvis © 2018 All Rights Reserved.
         <a class="grey-text text-lighten-4 right" href="#!">GitHub</a>
       </div>
     </div>
@@ -96,25 +96,25 @@
   crossorigin="anonymous"></script>
 
 <script>
-  $(document).ready(function () {
-    $(".dropdown-trigger").dropdown();
-    console.log("ready!");
-    $('.carousel').carousel();
-    $('[rel="tooltip"]').tooltip();
+//  $(document).ready(function () {
+//    $(".dropdown-trigger").dropdown();
+//    console.log("ready!");
+//    $('.carousel').carousel();
+//    $('[rel="tooltip"]').tooltip();
 
 
 
-  });
+//  });
 
-  function rotateCard(btn) {
-    var $card = $(btn).closest('.card-container');
-    console.log($card);
-    if ($card.hasClass('hover')) {
-      $card.removeClass('hover');
-    } else {
-      $card.addClass('hover');
-    }
-  }
+//  function rotateCard(btn) {
+//    var $card = $(btn).closest('.card-container');
+//    console.log($card);
+//    if ($card.hasClass('hover')) {
+//      $card.removeClass('hover');
+//    } else {
+//      $card.addClass('hover');
+//    }
+//  }
 </script>
 
 </html>

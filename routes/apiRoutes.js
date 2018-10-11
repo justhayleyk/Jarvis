@@ -5,10 +5,31 @@ var db = require('../models');
 
 module.exports = function(app) {
   // Get all examples
-  app.get('/api/examples', function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.json(dbExamples);
+  app.get('/api/services/cleaner', function(req, res) {
+    db.Contractor.findAll({ where: { contrcategory: 'cleaner' } }).then(
+      function(contractInfo) {
+        console.log('apiroutes cleaner');
+        res.json(contractInfo);
+      }
+    );
+  });
+
+  app.get('/api/services/chef', function(req, res) {
+    db.Contractor.findAll({ where: { contrcategory: 'chef' } }).then(function(
+      contractInfo
+    ) {
+      console.log('apiroutes chef');
+      res.json(contractInfo);
     });
+  });
+
+  app.get('/api/services/laundry', function(req, res) {
+    db.Contractor.findAll({ where: { contrcategory: 'laundry' } }).then(
+      function(contractInfo) {
+        console.log('apiroutes laundry');
+        res.json(contractInfo);
+      }
+    );
   });
 
   // Create a new example

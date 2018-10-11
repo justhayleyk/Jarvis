@@ -6,7 +6,7 @@
     "database": "jarvisdb",
 
     "host": "localhost",
-    "port": 3306,
+    "port": 8000,
     "dialect": "mysql"
   },
   "test": {
