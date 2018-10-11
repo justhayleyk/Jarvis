@@ -4,36 +4,61 @@
       <div class="row">
         <div class="col-md-12 login-sec">
           <h2 class="text-center">Sign Up Now</h2>
-          <form class="login-form">
+          <form action="/api/customerSignUp" method="POST" class="login-form">
+
+
             <div class="form-group">
               <label for="name" class="text-uppercase">Name</label>
-              <input id="name" type="text" class="form-control" placeholder="John Smith">
+              <input name="custName" type="text" class="form-control" placeholder="John Smith">
+
+            </div>
+
+            {{!-- <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="firstName" class="text-uppercase">First Name</label>
+                  <input id="firstName" type="text" class="form-control" placeholder="John">
+                </div>
+              </div><!-- /.col -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="lastName" class="text-uppercase">Last Name</label>
+                  <input id="lastName" type="text" class="form-control" placeholder="Smith"> </div>
+              </div><!-- /.col -->
+            </div><!-- /.row --> --}}
+
+
+
+
+
+            <div class="form-group">
+              <label for="userName" class="text-uppercase">User Name</label>
+              <input name="custUserName" type="text" class="form-control" placeholder="johnSmith123">
 
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1" class="text-uppercase">User Name</label>
-              <input name="userName" type="text" class="form-control" placeholder="johnSmith123">
+              <label for="Address" class="text-uppercase">Address</label>
+              <input name="custAddress" type="text" class="form-control" placeholder="">
 
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1" class="text-uppercase">Address</label>
-              <input name="userAddress" type="text" class="form-control" placeholder="">
+              <label for="phoneNumber" class="text-uppercase">Phone Number</label>
+              <input name="custPhone" type="text" class="form-control" placeholder="4161234567">
 
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1" class="text-uppercase">Phone Number</label>
-              <input name="userPhone" type="text" class="form-control" placeholder="4161234567">
+              <label for="Email" class="text-uppercase">Email</label>
+              <input name="custEmail" type="text" class="form-control" placeholder="johnsmith@youremail.com">
 
             </div>
             <div class="form-group">
-              <label for="exampleInputEmail1" class="text-uppercase">Email</label>
-              <input name="userEmail" type="text" class="form-control" placeholder="johnsmith@youremail.com">
-
+              <label for="Password" class="text-uppercase">Password</label>
+              <input name="custPassword" type="password" class="form-control" placeholder="">
             </div>
-            <div class="form-group">
-              <label for="exampleInputPassword1" class="text-uppercase">Password</label>
-              <input name="userPassword" type="password" class="form-control" placeholder="">
-            </div>
+            {{!-- <div class="form-group">
+              <label for="PasswordMatch" class="text-uppercase">Re-enter your Password</label>
+              <input name="userPasswordMatch" type="password" class="form-control" placeholder="">
+            </div> --}}
             <button type="submit" class="btn btn-primary">Submit</button>
           </form>
 
@@ -44,4 +69,5 @@
   </div>
 </section>
 
-<script type="text/javascript" src="/js/signUp.js"></script>
+{{!--
+<script type="text/javascript" src="/js/signUp.js"></script> --}}

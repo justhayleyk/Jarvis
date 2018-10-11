@@ -30,17 +30,20 @@ module.exports = function(app) {
     //res.sendFile(path.join(__dirname, '../public/oauthcallback/callback.html'));
   });*/
   // Load example page and pass in an example by id
-  app.get('/signup/', function(req, res) {
+  app.get('/signUp', function(req, res) {
     res.render('signup');
-
-    // db.Example.findOne({ where: { id: req.params.id } }).then(function(
-    //   dbExample
-    // ) {
-    //   res.render('example', {
-    //     example: dbExample
-    //   });
-    // });
   });
+
+  // app.post('/customerSignUp', function(req, res) {
+  // console.log(req.body.username);
+  // db.Example.findOne({ where: { id: req.params.id } }).then(function(
+  //   dbExample
+  // ) {
+  //   res.render('example', {
+  //     example: dbExample
+  //   });
+  // });
+  // });
 
   // Load example page and pass in an example by id
   app.get('/companysignup/', function(req, res) {
