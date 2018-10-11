@@ -14,7 +14,7 @@ const fs = require('fs');
 const readline = require('readline');
 //importing the googleapis
 const { google } = require('googleapis');
-var gcal = require('google-calendar');
+var moment = require('moment');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 //exporting everything for use in server file
@@ -22,11 +22,21 @@ module.exports = function(app) {
   //session storage. Secret is randomly created. resave forces session to be stored in session storage. setting saveUninitialized to true
   //forces session to be stored in the store. Set to false if you need permissions to allow cookies, reducing server storage usuage
   //or for implementing a required login page
+  const OAuth2 = google.auth.OAuth2;
   const authorizationCheck = function(req, res, next) {
     //if user is not logged in
     if (!req.user) {
       res.redirect('/login/');
     } else {
+      const oauth2Client = new google.auth.OAuth2(
+        process.env.CLIENT_ID,
+        process.env.CLIENT_SECRET_ID,
+        process.env.URI
+      );
+      oauth2Client.setCredentials({
+        access_token: req.user.google_token_access,
+        refresh_token: req.user.google_refresh_token
+      });
       //if logged in
       next();
     }
@@ -51,12 +61,14 @@ module.exports = function(app) {
         clientSecret: process.env.CLIENT_SECRET_ID,
         callbackURL: process.env.URI
       },
-      function(accessToken, refreshToken, profile, done) {
+      function(accessToken, refreshToken, params, profile, done) {
+        // find expiry_date so it can be save in the database, along with access and refresh token
+        const expiry_date = moment()
+          .add(params.expires_in, 's')
+          .format('X');
+        console.log(params);
         // console.log(profile);
         // console.log(profile.emails.value);
-        console.log('\n\nAccessToken \n: ' + accessToken);
-        var google_calendar = new gcal.GoogleCalendar(accessToken);
-        console.log('\n\n\n' + google_calendar + '\n\n\n');
 
         db.Customer.findOne({ where: { google_Id: profile.id } }).then(function(
           existingUser
@@ -69,7 +81,10 @@ module.exports = function(app) {
             //if not in database create
             db.Customer.create({
               google_Id: profile.id,
-              name: profile.displayName
+              custUserName: profile.displayName,
+              custName: profile.name.givenName,
+              google_token_access: accessToken,
+              google_refresh_token: refreshToken
               //name: profile.displayName
             }).then(function(newUser) {
               //console.log('new user created: ' + newUser);
@@ -81,7 +96,6 @@ module.exports = function(app) {
       }
     )
   );
-
   //
 
   // generate a url that asks permissions for Google calender view only and Google Calendar modifying events.
@@ -144,9 +158,9 @@ module.exports = function(app) {
     console.log('post request for additional information');
     db.Customer.update(
       {
-        address: req.body.userAddress,
-        phone: req.body.userPhone,
-        email: req.body.userEmail
+        custAddress: req.body.userAddress,
+        custPhone: req.body.userPhone,
+        custEmail: req.body.userEmail
       },
       {
         where: {
@@ -213,7 +227,7 @@ module.exports = function(app) {
       //belong to the primary user whose tokens are present(user).
       calendar.events.insert(
         {
-          auth: auth,
+          auth: oauth2Client,
           calendarId: 'primary',
           resource: event
         }, //if there is an error, the console log will show what error there is
