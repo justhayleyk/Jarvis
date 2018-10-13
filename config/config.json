@@ -1,9 +1,9 @@
 {
   "development": {
     "username": "root",
-    "password": "password1",
+    "password": "password",
 
-    "database": "test_jarvis_db",
+    "database": "jarvisdb",
 
     "host": "localhost",
     "port": 3306,
@@ -19,6 +19,13 @@
   },
   "production": {
     "use_env_variable": "JAWSDB_URL",
+    "username": "i3b74t4ay4mqyr0w",
+    "password": "q7mx0v84a1t6sjvb",
+
+    "database": "zkov2wtdr8awszno",
+
+    "host": "a07yd3a6okcidwap.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
+    "port": 3306,
     "dialect": "mysql"
   }
 }
